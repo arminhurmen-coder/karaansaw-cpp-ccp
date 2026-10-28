@@ -56,11 +56,31 @@ def money(v):
 def safe_div(a, b):
     return a / b if b else 0.0
 
+def valid_edge_values(values):
+    result = []
+    for x in values:
+        if x is None:
+            continue
+        try:
+            value = float(x)
+        except (TypeError, ValueError):
+            continue
+
+        if value > 0:
+            result.append(value)
+
+    return result
+
+
 def calc(data):
-    old_edges = [x for x in data["old_edge_pieces"] if x is not None]
-    new_edges = [x for x in data["new_edge_pieces"] if x is not None]
+    old_edges = valid_edge_values(data["old_edge_pieces"])
+    new_edges = valid_edge_values(data["new_edge_pieces"])
+
     if not old_edges or not new_edges:
-        raise ValueError("Enter at least one measured edge result for both tools.")
+        raise ValueError(
+            "Enter at least one measured edge result greater than zero for both tools."
+        )
+
     l0, l1 = mean(old_edges), mean(new_edges)
     e0, e1 = data["old_usable_edges"], data["new_usable_edges"]
     p0, p1 = data["old_insert_price"], data["new_insert_price"]
