@@ -324,8 +324,8 @@ with st.form("test_form"):
     for i in range(0,8,2):
         cols = st.columns(4)
         for j in range(i,min(i+2,8)):
-            old_edge_pieces.append(cols[(j-i)*2].number_input(f"{labels[j]} — existing", min_value=0.0, value=[25,25,25,24,25,25,0,0][j] if j<6 else 0.0, key=f"old_edge_{j}", help="Enter 0 if not used; zeros are ignored."))
-            new_edge_pieces.append(cols[(j-i)*2+1].number_input(f"{labels[j]} — proposed", min_value=0.0, value=[30,31,30,30,31,30,0,0][j] if j<6 else 0.0, key=f"new_edge_{j}", help="Enter 0 if not used; zeros are ignored."))
+            value=float([30, 31, 30, 30, 31, 30, 0, 0][j])
+            new_edge_pieces.append(cols[(j-i)*2+1].number_input(f"{labels[j]} — proposed", min_value=0.0, value=float([30, 31, 30, 30, 31, 30, 0, 0][j]), key=f"new_edge_{j}", help="Enter 0 if not used; zeros are ignored."))
     old_edge_pieces = [x if x > 0 else None for x in old_edge_pieces]
     new_edge_pieces = [x if x > 0 else None for x in new_edge_pieces]
     monthly_accepted_output = st.number_input("Monthly accepted production volume", min_value=1, value=20000, step=100)
